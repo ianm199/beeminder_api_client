@@ -1,5 +1,5 @@
 from typing import Optional, List, Tuple, Dict, Union
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 class Datapoint(BaseModel):
     """
@@ -13,8 +13,7 @@ class Datapoint(BaseModel):
     updated_at: Optional[int] = None
     requestid: Optional[str] = None
 
-    class Config:
-        extra = "allow"
+    model_config = ConfigDict(extra="allow")
 
 class Contract(BaseModel):
     """
@@ -126,5 +125,4 @@ class BeeminderUser(BaseModel):
     remaining_subs_credit: Optional[int] = None
     id: Optional[str] = None
 
-    class Config:
-        extra = "allow"
+    model_config = ConfigDict(extra="allow")
