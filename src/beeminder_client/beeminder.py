@@ -63,6 +63,16 @@ class BeeminderAPI:
         response.raise_for_status()
         return response.json()
 
+    def _put(self, endpoint: str, data: Dict[str, Any]) -> Dict[str, Any]:
+        """Make an authenticated PUT request to the Beeminder API."""
+        response = requests.put(
+            f"{self.BASE_URL}{endpoint}",
+            params={"auth_token": self.api_key},
+            data=data,
+        )
+        response.raise_for_status()
+        return response.json()
+
     def _delete(self, endpoint: str) -> Dict[str, Any]:
         """Make an authenticated DELETE request to the Beeminder API."""
         response = requests.delete(
@@ -384,7 +394,7 @@ class BeeminderAPI:
         if comment is not None:
             data["comment"] = comment
 
-        response_data = self._post(f"/users/{user}/goals/{goal_slug}/datapoints/{datapoint_id}.json", data)
+        response_data = self._put(f"/users/{user}/goals/{goal_slug}/datapoints/{datapoint_id}.json", data)
         return Datapoint(**response_data)
 
     def delete_datapoint(
