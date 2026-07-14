@@ -5,13 +5,16 @@ class Datapoint(BaseModel):
     """
     A single datapoint for a Beeminder goal.
     """
-    id: Optional[str]
-    timestamp: Optional[int]
-    daystamp: Optional[str]
-    value: Optional[float]
-    comment: Optional[str]
-    updated_at: Optional[int]
-    requestid: Optional[str]
+    id: Optional[str] = None
+    timestamp: Optional[int] = None
+    daystamp: Optional[str] = None
+    value: float
+    comment: Optional[str] = None
+    updated_at: Optional[int] = None
+    requestid: Optional[str] = None
+
+    class Config:
+        extra = "allow"
 
 class Contract(BaseModel):
     """
@@ -122,23 +125,6 @@ class BeeminderUser(BaseModel):
     subs_lifetime: Optional[str] = None
     remaining_subs_credit: Optional[int] = None
     id: Optional[str] = None
-
-    class Config:
-        extra = "allow"
-
-
-class Datapoint(BaseModel):
-    """
-    An expanded Pydantic model representing a Beeminder datapoint.
-    All fields are optional except value, following the API schema.
-    """
-    id: Optional[str] = None
-    timestamp: Optional[int] = None
-    daystamp: Optional[str] = None
-    value: float
-    comment: Optional[str] = None
-    requestid: Optional[str] = None
-    updated_at: Optional[int] = None
 
     class Config:
         extra = "allow"

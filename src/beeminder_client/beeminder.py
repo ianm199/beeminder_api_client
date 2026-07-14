@@ -63,6 +63,15 @@ class BeeminderAPI:
         response.raise_for_status()
         return response.json()
 
+    def _delete(self, endpoint: str) -> Dict[str, Any]:
+        """Make an authenticated DELETE request to the Beeminder API."""
+        response = requests.delete(
+            f"{self.BASE_URL}{endpoint}",
+            params={"auth_token": self.api_key},
+        )
+        response.raise_for_status()
+        return response.json()
+
     def get_goal(self, user: Optional[str], goal_slug: str, datapoints: bool = False) -> BeeminderGoal:
         """
         Get information about a specific goal and return a BeeminderGoal instance.
