@@ -5,13 +5,13 @@ class Datapoint(BaseModel):
     """
     A single datapoint for a Beeminder goal.
     """
-    id: Optional[str]
-    timestamp: Optional[int]
-    daystamp: Optional[str]
-    value: Optional[float]
-    comment: Optional[str]
-    updated_at: Optional[int]
-    requestid: Optional[str]
+    id: Optional[str] = None
+    timestamp: Optional[int] = None
+    daystamp: Optional[str] = None
+    value: Optional[float] = None
+    comment: Optional[str] = None
+    updated_at: Optional[int] = None
+    requestid: Optional[str] = None
 
 class Contract(BaseModel):
     """
