@@ -180,17 +180,19 @@ def test_create_multiple_datapoints_constructs_payload(client):
 
 
 def test_update_datapoint_includes_explicit_zero_and_empty_comment(client):
-    with patch.object(
-        client, "_post", return_value={"id": "dp-1", "value": 0, "comment": ""}
-    ) as post:
+    response = response_with({"id": "dp-1", "value": 0, "comment": ""})
+
+    with patch("beeminder_client.beeminder.requests.put", return_value=response) as put:
         datapoint = client.update_datapoint(
             None, "read", "dp-1", value=0, timestamp=0, comment=""
         )
 
-    post.assert_called_once_with(
-        "/users/alice/goals/read/datapoints/dp-1.json",
-        {"value": 0, "timestamp": 0, "comment": ""},
+    put.assert_called_once_with(
+        f"{BASE_URL}/users/alice/goals/read/datapoints/dp-1.json",
+        params={"auth_token": "secret-token"},
+        data={"value": 0, "timestamp": 0, "comment": ""},
     )
+    response.raise_for_status.assert_called_once_with()
     assert isinstance(datapoint, Datapoint)
     assert datapoint.value == 0
 
