@@ -60,7 +60,7 @@ beeminder-cli
 ## Using the API Client
 
 ```python
-from src.beeminder import BeeminderAPI
+from beeminder_client.beeminder import BeeminderAPI
 
 # Initialize client
 client = BeeminderAPI(api_key="your-api-key", default_user="username")
